@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset="utf-8">
+  <title>Nick's Blackjack Game</title>
+  <link rel="stylesheet" href="assets/stylesheets/main.css">
+  <link rel="stylesheet" href="assets/stylesheets/bootstrap.min.css"/>
+  <script src="blackjack.js"></script>
+  <script src="jquery.js"></script>
+</head>
+
+<body>
+
+  <header>
+    <div>
+      <h1><a href='#'>NicholasVrdoljak</a></h1>
+      <h3 style='text-align:center'>BlackJack</h3>
+    </div>
+
+    <!-- <span class='primary-nav container-fluid'>
+      <div class='row'>
+        <a class='col-sm-3' href='portfolio.html'>Portfolio</a>
+        <a class='col-sm-3' href='blog.html'>Blog</a>
+        <a class='col-sm-3' href='photos.html'>Photos</a>
+        <a class='col-sm-3' href='contact.html'>Contact</a>
+      </div>
+    </span> -->
+
+  </header>
+
+    <div class="row">
+        <div class="col-md-5">
+            <div class="well">Dealer's Cards
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+            </div>
+        </div>
+
+
+        <div class="col-md-2">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="well" style='text-align:center'>Options:</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div style='text-align:center' class="well">
+                      <button class='btn' id='deal'>Deal to Players</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div style='text-align:center' class="well">
+                      <button class='btn'>Hit Me!</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div style='text-align:center' class="well">
+                      <button class='btn' id='hold'>Hold</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-5">
+          <div class="well" id='yourCards'>Your Cards
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+              <br/>
+          </div>
+      </div>
+  </div>
+
+  <div class='row'>
+    <div class='col-md-6'>
+      <div class='well'>Cards remaining in deck:<br/><br/></div>
+    </div>
+    <div class='col-md-6'>
+      <div class='well'><button class='btn'>Restart</button></div>
+    </div>
+  </div>
+
+
+  <footer>
+    <small style='margin: 20px'>&copy; Nicholas Vrdoljak</small>
+  </footer>
+
+</body>
+
+<script>
+  $(document).ready(function(){
+
+    let deck = new Deck();
+    deck.generateDeck();
+    deck.shuffle();
+
+    //deal to players
+    $('#deal').on('click', function(){
+
+      $('#deal').replaceWith('<div id=deal>Cards have been Dealt</div>');
+      let yourCards = [];
+      let dealerCards = [];
+      yourCards.push(deck.dealCards());
+      yourCards.push(deck.dealCards());
+      dealerCards.push(deck.dealCards());
+      dealerCards.push(deck.dealCards());
+
+    });
+
+    //hit me!
+    $('#hit').on('click',function(){
+
+    });
+
+    //hold!
+    $('#hold').on('click', function(){
+      $('#deal').replaceWith('<button class=btn id=deal>Deal to Players</button>');
+    });
+
+  });
+
+</script>
+
+
+</html>

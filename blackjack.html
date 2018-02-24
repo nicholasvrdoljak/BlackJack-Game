@@ -17,16 +17,6 @@
       <h1><a href='#'>NicholasVrdoljak</a></h1>
       <h3 style='text-align:center'>BlackJack</h3>
     </div>
-
-    <!-- <span class='primary-nav container-fluid'>
-      <div class='row'>
-        <a class='col-sm-3' href='portfolio.html'>Portfolio</a>
-        <a class='col-sm-3' href='blog.html'>Blog</a>
-        <a class='col-sm-3' href='photos.html'>Photos</a>
-        <a class='col-sm-3' href='contact.html'>Contact</a>
-      </div>
-    </span> -->
-
   </header>
 
     <div class="row">
@@ -103,17 +93,20 @@
   </div>
 
   <div class='row'>
-    <div class='col-md-6'>
-      <div class='well'>Cards remaining in deck:<br/><br/></div>
+    <div class='col-md-5'>
+      <div class='well'>Opponent's total = 0<br/><br/></div>
     </div>
-    <div class='col-md-6'>
-      <div class='well'><button class='btn'>Restart</button></div>
+    <div class='col-md-2'>
+      <div class='well' style='text-align: center'><button class='btn'>Restart</button></div>
+    </div>
+    <div class='col-md-5'>
+      <div class='well'>Your total = 0<br/><br/></div>
     </div>
   </div>
 
 
   <footer>
-    <small style='margin: 20px'>&copy; Nicholas Vrdoljak</small>
+    <small>&copy; Nicholas Vrdoljak</small>
   </footer>
 
 </body>
@@ -124,29 +117,44 @@
     let deck = new Deck();
     deck.generateDeck();
     deck.shuffle();
+    let yourCards = [];
+    let dealerCards = [];
+    //also want to toggle deal to players button if player busted,
+    // and clear all cards from field.
 
     //deal to players
-    $('#deal').on('click', function(){
-
-      $('#deal').replaceWith('<div id=deal>Cards have been Dealt</div>');
-      let yourCards = [];
-      let dealerCards = [];
+    $(document).on('click', '#deal', function(){
+      $('#deal').replaceWith('<div id="deal">Cards have been Dealt</div>');
       yourCards.push(deck.dealCards());
       yourCards.push(deck.dealCards());
       dealerCards.push(deck.dealCards());
       dealerCards.push(deck.dealCards());
-
+      //display cards in field
+      //update with total
     });
 
     //hit me!
     $('#hit').on('click',function(){
+      yourCards.push(deck.dealCards());
+      //display card in field
+      let yourTotal = checkValues(yourCards);
+      //check if bust - if so - restart game
 
     });
 
     //hold!
-    $('#hold').on('click', function(){
-      $('#deal').replaceWith('<button class=btn id=deal>Deal to Players</button>');
+    $(document).on('click', '#hold', function(){
+      setTimeout(function() {
+        $('#deal').replaceWith('<button class="btn" id="deal">Deal to Players</button>');
+      }, 5000); //resets the deal button after 5 seconds
+      let dealerTotal = checkValues(dealerCards);
+      //hit dealer if necessary
+        //if necessary, display card and calculate value again
+        //if not, determine winner
+
     });
+
+
 
   });
 

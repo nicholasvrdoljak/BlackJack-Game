@@ -41,3 +41,42 @@ class Deck {
     }
 
 }
+
+//check your card values
+let checkValues = (cardArray) => {
+//add up card values in the given array's cards
+  let total = 0;
+  let containsAce = false;
+  let numOfAces = 0;
+  for (let i = 0; i < cardArray.length; i++){
+    if (['J', 'Q', 'K'].includes(cardArray[i].value)){
+      total += 10;
+    } else if (cardArray[i].value !== 'A'){
+      total += cardArray[i].value;
+    } else if (cardArray[i].value === 'A'){
+      containsAce = true;
+      numOfAces += 1;
+    }
+  }
+
+  let aces = (containsAce, numOfAces, total) => {
+    if (containsAce === true){
+      let tempTotal = total;
+      tempTotal += numOfAces * 11;
+      if (tempTotal > 21 && numOfAces > 0){
+        tempTotal = total + 1;
+        if (numOfAces - 1 === 0){
+          return tempTotal;
+        } else {
+          return aces(containsAce, numOfAces - 1, tempTotal)
+        }
+      } else {
+        return tempTotal;
+      }
+    } else {
+      return total;
+    }
+  }
+  return aces(containsAce, numOfAces, total);
+}
+//

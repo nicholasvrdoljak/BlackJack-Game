@@ -97,7 +97,7 @@
       <div class='well dealerTotal'>Dealer's total = 0<br/><br/></div>
     </div>
     <div class='col-md-2'>
-      <div class='well' style='text-align: center'><button class='btn'>Restart</button></div>
+      <div class='well' style='text-align: center'><button id='restart' class='btn'>Restart</button></div>
     </div>
     <div class='col-md-5'>
       <div class='well yourTotal'>Your total = 0<br/><br/></div>
@@ -135,10 +135,10 @@
       $('.dealerField').children().append('<h4>'+dealerCards[0].value +', '+ dealerCards[1].value+'</h4>');
       //update totals
       $('.yourTotal').text(function(){
-        return $(this).text().replace('0', checkValues(yourCards));
+        return $(this).text().replace('0', checkValues(yourCards)[0]);
       });
       $('.dealerTotal').text(function(){
-        return $(this).text().replace('0', checkValues(dealerCards));
+        return $(this).text().replace('0', checkValues(dealerCards)[0]);
       });
     });
 
@@ -155,23 +155,42 @@
 
       //update your total
       let yourTotal = checkValues(yourCards);
-      $('.yourTotal').text(yourTotal);
+      //$('.yourTotal').text(yourTotal[0]);
       //check if bust - if so - restart game
-
+      if (yourTotal[0]>21){
+        //bust!
+        $('.yourTotal').text(`BUST! ${yourTotal[0]}`);
+        $('#hit').replaceWith('<div id=noHit>Reset Game</div>');
+      }else if (yourTotal[0]===21){
+        //blackjack! + hold cards
+        $('.yourTotal').text(`Your total = Blackjack! ${yourTotal[0]}`);
+        $('#hit').replaceWith('<div id=noHit>No Hit on 21</div>');
+        dealerHitting(dealerCards);
+      }else if (yourTotal[0] < 21 && yourTotal[1]){
+        //hit or hold?
+        $('.yourTotal').text(`Your total = Soft ${yourTotal[0]}`);
+      }else if (yourTotal[0] < 21 && !yourTotal[1]){
+        $('.yourTotal').text(`Your total = Hard ${yourTotal[0]}`);
+      }
     });
 
     //hold!
     $(document).on('click', '#hold:button', function(){
-      setTimeout(function() {
-        $('#noDeal').replaceWith('<button class="btn" id="deal">Deal to Players</button>');
-      }, 10000); //resets the deal button after 5 seconds
-      let dealerTotal = checkValues(dealerCards);
-      //hit dealer if necessary
-        //if necessary, display card and calculate value again
-        //if not, determine winner
-
+      dealerHitting(dealerCards);
     });
 
+    //restart
+    $(document).on('click', '#restart:button', function(){
+      deck = new Deck();
+      deck.generateDeck();
+      deck.shuffle();
+      let yourCards = [];
+      let dealerCards = [];
+      $('#noDeal').replaceWith('<button class="btn" id="deal">Deal to Players</button>');
+      $('#noHit').replaceWith('<button class=btn id=hit>Hit Me!</button>');
+
+
+    });
 
 
   });

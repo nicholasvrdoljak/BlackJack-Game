@@ -81,32 +81,45 @@ let checkValues = (cardArray) => {
 }
 
 //check for the dealer to hit
-let dealerHitting = (dealerCards) => {
+let dealerHitting = (deck, dealerCards, yourCards) => {
   //hit dealer if necessary
-  let total = checkValues(dealerCards)[0];
-  let aces = checkValues(dealerCards)[1];
+  let total = (checkValues(dealerCards))[0];
+  let aces = (checkValues(dealerCards))[1];
+
+  let cardString = String(dealerCards[0].value);
+  for (let i = 1; i < dealerCards.length; i++){
+    cardString = cardString + ', ' + dealerCards[i].value;
+  }
+
+  $('.dealerField').children().replaceWith(`<div class=well id=dealerCards>Dealer\'s Cards<br/>${cardString}</div>`);
+  $('.dealerTotal').text(`Dealer\'s total = ${total}`);
+
     //<17, hit, update
-    if (total<17){
-      dealerCards.push(Deck.dealCards());
-      return dealerHitting(dealerCards);
-    //soft 17, hit, hard 17, hold
-    }else if (total === 17 && aces){
-      dealerCards.push(Deck.dealCards());
-      return dealerHitting(dealerCards);
-    }else if (total >= 17 && total <21){
-      checkWinner(yourCards, dealerCards);
-    }
+  if (total<17){
+    dealerCards.push(deck.dealCards());
+    return dealerHitting(deck, dealerCards);
+  //soft 17, hit, hard 17, hold
+  }else if (total === 17 && aces){
+    dealerCards.push(deck.dealCards());
+    return dealerHitting(deck, dealerCards);
+  //hard 17 or < 21
+  }else if (total >= 17 && total <21){
+    checkWinner(yourCards, dealerCards);
+  //bust!
+  }else if (total > 21){
+    $('.dealerTotal').text(`BUST! ${total}, reset game!`);
+  }
 }
 
 let checkWinner = (yourCards, dealerCards) => {
-  let yTotal = checkValues(yourCards)[0];
-  let dTotal = checkValues(dealerCards)[0];
+  let yTotal = (checkValues(yourCards))[0];
+  let dTotal = (checkValues(dealerCards))[0];
   if (yTotal > dTotal){
-    //you win
+    $('footer').prepend('YOU WON!');
   }else if (dTotal > yTotal){
-    //you lose
+    $('footer').prepend('YOU LOST!');
   }else {
-    //tie
+    $('footer').prepend('TIE!');
   }
 
 }

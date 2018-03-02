@@ -124,6 +124,6 @@ let checkWinner = (yourCards, dealerCards) => {
 
 }
 //compare your cards and dealer cards
-// let whoWon = () => {
+// and let whoWon = () => {
 //
 // }

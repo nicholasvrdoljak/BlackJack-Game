@@ -97,8 +97,10 @@ let dealerHitting = (deck, dealerCards, yourCards) => {
   for (let i = 1; i < dealerCards.length; i++){
     cardString = cardString + ', ' + dealerCards[i].value;
   }
-
-  $('.dealerField').children().replaceWith(`<div class=well id=dealerCards>Dealer\'s Cards<br/>${cardString}</div>`);
+  $('.dealerField').children().replaceWith('<div class=well id=dealerCards>Dealer\'s Cards<br/><br/><br/><br/></div>');
+  for (let i = 0; i < dealerCards.length; i++){
+    $('.dealerField').children().append(`<img src=assets/cardImages/${dealerCards[i].name}.svg alt=card>`);
+  }
   $('.dealerTotal').text(`Dealer\'s total = ${total}`);
 
     //<17, hit, update
@@ -115,13 +117,16 @@ let dealerHitting = (deck, dealerCards, yourCards) => {
   //bust!
   }else if (total > 21){
     $('.dealerTotal').text(`BUST! ${total}, reset game!`);
+    checkWinner(yourCards, dealerCards);
   }
 }
 
 let checkWinner = (yourCards, dealerCards) => {
   let yTotal = (checkValues(yourCards))[0];
   let dTotal = (checkValues(dealerCards))[0];
-  if (yTotal > dTotal){
+  if (dTotal > 21){
+    $('footer').prepend('YOU WON!');
+  }else if(yTotal > dTotal){
     $('footer').prepend('YOU WON!');
   }else if (dTotal > yTotal){
     $('footer').prepend('YOU LOST!');

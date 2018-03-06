@@ -110,13 +110,13 @@
       dealerCards.push(deck.dealCards());
       //display cards in field
       $('#yourCards').append(`<img src=assets/cardImages/${yourCards[0].name}.svg alt=card1><img src=assets/cardImages/${yourCards[1].name}.svg alt=card2>`);
-      $('#dealerCards').append(`<img src=assets/cardImages/${dealerCards[0].name}.svg alt=card1><img src=assets/cardImages/${dealerCards[1].name}.svg alt=card2>`);
+      $('#dealerCards').append(`<img src=assets/cardImages/card_back.svg alt=card1><img src=assets/cardImages/${dealerCards[1].name}.svg alt=card2>`);
       //update totals
       $('.yourTotal').text(function(){
         return $(this).text().replace('0', checkValues(yourCards)[0]);
       });
       $('.dealerTotal').text(function(){
-        return $(this).text().replace('0', checkValues(dealerCards)[0]);
+        return $(this).text().replace('0', '?');
       });
     });
 
@@ -129,7 +129,7 @@
       }
 
       //display cards in field
-      $('.yourField').children().replaceWith(`<div class=well id=yourCards>Your Cards<br/>${cardString}</div>`);
+      $('.yourField').children().append(`<img src=assets/cardImages/${yourCards[yourCards.length -1].name}.svg alt=nextCard>`);
 
       //update your total
       let yourTotal = checkValues(yourCards);
@@ -169,8 +169,8 @@
       dealerTotal = 0;
       $('#noDeal').replaceWith('<button class="btn" id="deal">Deal to Players</button>');
       $('#noHit').replaceWith('<button class=btn id=hit>Hit Me!</button>');
-      $('#yourCards').parent().html('<div class=well id=yourCards>Your Cards<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>');
-      $('#dealerCards').parent().html('<div class=well id=dealerCards>Dealer"s Cards<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></div>');
+      $('#yourCards').parent().html('<div class=well id=yourCards>Your Cards<br/><br/><br/><br/><br/></div>');
+      $('#dealerCards').parent().html('<div class=well id=dealerCards>Dealer"s Cards<br/><br/><br/><br/><br/></div>');
       $('.dealerTotal').replaceWith('<div class="well dealerTotal">Dealer\'s total = 0<br/><br/></div>');
       $('.yourTotal').replaceWith('<div class="well yourTotal">Your total = 0<br/><br/></div>');
     });

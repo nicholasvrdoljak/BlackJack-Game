@@ -26,17 +26,6 @@
                 <br/>
                 <br/>
                 <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
             </div>
         </div>
 
@@ -73,17 +62,6 @@
 
         <div class="col-md-5 yourField">
           <div class="well" id='yourCards'>Your Cards
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
-              <br/>
               <br/>
               <br/>
               <br/>
@@ -131,8 +109,8 @@
       dealerCards.push(deck.dealCards());
       dealerCards.push(deck.dealCards());
       //display cards in field
-      $('.yourField').children().append('<h4>'+yourCards[0].value+', '+yourCards[1].value+'</h4>');
-      $('.dealerField').children().append('<h4>'+dealerCards[0].value +', '+ dealerCards[1].value+'</h4>');
+      $('#yourCards').append(`<img src=assets/cardImages/${yourCards[0].name}.svg alt=card1><img src=assets/cardImages/${yourCards[1].name}.svg alt=card2>`);
+      $('#dealerCards').append(`<img src=assets/cardImages/${dealerCards[0].name}.svg alt=card1><img src=assets/cardImages/${dealerCards[1].name}.svg alt=card2>`);
       //update totals
       $('.yourTotal').text(function(){
         return $(this).text().replace('0', checkValues(yourCards)[0]);
@@ -196,8 +174,6 @@
       $('.dealerTotal').replaceWith('<div class="well dealerTotal">Dealer\'s total = 0<br/><br/></div>');
       $('.yourTotal').replaceWith('<div class="well yourTotal">Your total = 0<br/><br/></div>');
     });
-
-
   });
 
 </script>

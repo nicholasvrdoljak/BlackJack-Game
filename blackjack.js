@@ -7,12 +7,19 @@ class Deck {
     generateDeck(){
       let card = (suit,value) => {
         let tempCard = {};
-        tempCard.name = value + ' of ' + suit
+        let names = {
+          'K': 'king',
+          'Q': 'queen',
+          'J': 'jack',
+          'A': 'ace',
+          2:2, 3:3, 4:4, 5:5, 6:6, 7:7, 8:8, 9:9, 10:10
+        }
+        tempCard.name = names[value] + '_of_' + suit
         tempCard.value = value;
         tempCard.suit = suit;
         return tempCard;
       }
-      let suits = ['Clubs', 'Spades', 'Hearts', 'Diamonds'];
+      let suits = ['clubs', 'spades', 'hearts', 'diamonds'];
       let values = [2, 3, 4, 5, 6, 7, 8, 9, 10, 'J', 'Q', 'K', 'A'];
       for (let s = 0; s < suits.length; s++){
         for (let v = 0; v < values.length; v++){

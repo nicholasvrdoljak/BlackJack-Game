@@ -109,8 +109,12 @@
       dealerCards.push(deck.dealCards());
       dealerCards.push(deck.dealCards());
       //display cards in field
+      $('#yourCards').hide()
       $('#yourCards').append(`<img src=assets/cardImages/${yourCards[0].name}.svg alt=card1><img src=assets/cardImages/${yourCards[1].name}.svg alt=card2>`);
+      $('#yourCards').slideDown();
+      $('#dealerCards').hide();
       $('#dealerCards').append(`<img src=assets/cardImages/card_back.svg alt=card1><img src=assets/cardImages/${dealerCards[1].name}.svg alt=card2>`);
+      $('#dealerCards').slideDown();
       //update totals
       $('.yourTotal').text(function(){
         return $(this).text().replace('0', checkValues(yourCards)[0]);

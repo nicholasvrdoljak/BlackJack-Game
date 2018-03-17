@@ -2,6 +2,8 @@ class Deck {
     constructor(){
       this.deck = [];
       this.dealtCards = [];
+      this.yourCards = [];
+      this.dealerCards = [];
     }
 
     generateDeck(){
@@ -124,18 +126,22 @@ let dealerHitting = (deck, dealerCards, yourCards) => {
 let checkWinner = (yourCards, dealerCards) => {
   let yTotal = (checkValues(yourCards))[0];
   let dTotal = (checkValues(dealerCards))[0];
-  if (dTotal > 21){
-    $('footer').prepend('YOU WON!');
-  }else if(yTotal > dTotal){
-    $('footer').prepend('YOU WON!');
-  }else if (dTotal > yTotal){
-    $('footer').prepend('YOU LOST!');
-  }else {
-    $('footer').prepend('TIE!');
-  }
+  //if you are > 21 
+    //you lose
+  
+  //if dealer > 21
+    //if you are > 21 
+      //tie
+    //if you are < 21
+      //you win
+
+  //if both < 21
+    if(yTotal > dTotal){
+      $('footer').prepend('YOU   WON!');
+    }else if (dTotal > yTotal){
+      $('footer').prepend('YOU LOST!');
+    }else {
+      $('footer').prepend('TIE!');
+    }
 
 }
-//compare your cards and dealer cards
-// and let whoWon = () => {
-//
-// }
